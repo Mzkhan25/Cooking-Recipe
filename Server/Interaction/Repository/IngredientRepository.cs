@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Web;
 using Contract;
 using Contract.IRepository;
 using Models.Models;
@@ -18,6 +16,7 @@ namespace Interaction.Repository
         {
             _db = new Context();
         }
+
         public IQueryable<Ingredient> GetAll()
         {
             return _db.Ingredients.Where(ingredient => ingredient.IsDeleted != true);
@@ -25,15 +24,42 @@ namespace Interaction.Repository
 
         public BaseException Save(Ingredient item)
         {
-            BaseException baseException= new BaseException();
+            var baseException = new BaseException();
             try
             {
-                throw new NotImplementedException();
+                var isNew = false;
+                var dbItem = _db.Ingredients.Find(item.Id);
+                if (dbItem != null && item.Id != 0)
+                {
+                    _db.Entry(dbItem).State = EntityState.Modified;
+                }
+                else
+                {
+                    dbItem = item;
+                    dbItem.DateAdded = DateTime.UtcNow;
+                    dbItem.AddedBy = item.AddedBy;
+                    isNew = true;
+                }
+
+                dbItem.Name = item.Name;
+                dbItem.Quantity = item.Quantity;
+
+                dbItem.DateModified = DateTime.UtcNow;
+                dbItem.ModifiedBy = item.ModifiedBy;
+
+                if (isNew)
+                {
+                    _db.Entry(dbItem).State = EntityState.Added;
+                    _db.Ingredients.Add(dbItem);
+                }
+
+                _db.SaveChanges();
+                baseException.HasError = false;
             }
             catch (Exception e)
             {
+                baseException.HasError = true;
                 baseException.Message = e.Message;
-                
             }
 
             return baseException;
@@ -41,7 +67,7 @@ namespace Interaction.Repository
 
         public BaseException Delete(int id)
         {
-            BaseException baseException = new BaseException();
+            var baseException = new BaseException();
             try
             {
                 var dbItem = _db.Ingredients.FirstOrDefault(user => user.Id == id);
@@ -52,14 +78,14 @@ namespace Interaction.Repository
                     dbItem.IsDeleted = true;
                     baseException.Id = dbItem.Id;
                 }
-                _db.SaveChanges();
-                baseException.HasError = true;
 
+                _db.SaveChanges();
+                baseException.HasError = false;
             }
             catch (Exception e)
             {
+                baseException.HasError = true;
                 baseException.Message = e.Message;
-
             }
 
             return baseException;
