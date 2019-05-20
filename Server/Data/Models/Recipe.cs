@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Models.Models.Common;
+using Data.Models.Common;
 
-namespace Models.Models
+namespace Data.Models
 {
     public class Recipe : BaseClass
     {

@@ -1,6 +1,6 @@
 ﻿using System.Data.Entity;
 using Contract;
-using Models.Models;
+using Data.Models;
 
 namespace Interaction
 {
@@ -9,9 +9,8 @@ namespace Interaction
         public Context()
         {
             Database.Connection.ConnectionString =
-                @"Data Source=DESKTOP-OO9MRLG\SQLEXPRESS;Initial Catalog=FRDCreator;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+                @"Data Source=TK-LPT-0045;Initial Catalog=CookingRecipe;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
         }
-
 
         public DbSet<User> Users { get; set; }
         public DbSet<Ingredient> Ingredients { get; set; }

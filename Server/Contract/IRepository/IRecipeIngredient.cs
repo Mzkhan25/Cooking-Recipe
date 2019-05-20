@@ -1,6 +1,6 @@
 ﻿using System.Linq;
-using Models.Models;
-using Models.Models.Common;
+using Data.Models;
+using Data.Models.Common;
 
 namespace Contract.IRepository
 {

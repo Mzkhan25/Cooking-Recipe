@@ -3,8 +3,8 @@ using System.Data.Entity;
 using System.Linq;
 using Contract;
 using Contract.IRepository;
-using Models.Models;
-using Models.Models.Common;
+using Data.Models;
+using Data.Models.Common;
 
 namespace Interaction.Repository
 {

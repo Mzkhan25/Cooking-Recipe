@@ -93,9 +93,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Models\Models.csproj">
-      <Project>{12B28EB6-EC5C-4F43-89F8-B06AD85F1187}</Project>
-      <Name>Models</Name>
+    <ProjectReference Include="..\Data\Data.csproj">
+      <Project>{6F9A4941-3CC1-45C8-BF0D-931CC8D960C9}</Project>
+      <Name>Data</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
